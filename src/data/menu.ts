@@ -8,7 +8,7 @@ export type Marmita = {
 export const marmitas: Marmita[] = [
   {
     nome: "Macarrão com legumes",
-    desc: "Macarrão paractamol com carne moída de patinho, acompanhado de tomate-cereja, chuchu e batata-doce.",
+    desc: "Macarrão parafuso com carne moída de patinho, acompanhado de tomate-cereja, chuchu e batata-doce.",
     preco: 29.9,
     img: "/images/macarrao-legumes.jpg",
   },
