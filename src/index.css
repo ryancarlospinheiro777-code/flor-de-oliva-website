@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  --font-body: "Karla", "Segoe UI", ui-sans-serif, sans-serif;
+
+  --color-olive-950: #141b0c;
+  --color-olive-900: #1d2712;
+  --color-olive-850: #243117;
+  --color-olive-800: #2c3b1c;
+  --color-olive-700: #3a4c26;
+  --color-olive-600: #4a5f30;
+  --color-olive-500: #5d7440;
+  --color-sage-500: #7c9059;
+  --color-sage-400: #93a771;
+  --color-sage-300: #aebd8e;
+  --color-cream-50: #f8f3e4;
+  --color-cream-100: #f0e9d3;
+  --color-cream-200: #e2d8b9;
+  --color-cream-300: #cfc19c;
+  --color-cream-400: #b3a377;
+  --color-gold-300: #d6bf88;
+  --color-gold-400: #c3a96c;
+  --color-gold-500: #a88e51;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 92px;
+}
+
+body {
+  background-color: var(--color-olive-950);
+  color: var(--color-cream-100);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-gold-400);
+  color: var(--color-olive-950);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-olive-950);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-olive-700);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sage-500);
+}
+
+/* ---------- grain overlay ---------- */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 170px 170px;
+}
+
+/* ---------- lily line-draw ---------- */
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.flor-draw path,
+.flor-draw line,
+.flor-draw ellipse {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1.5s cubic-bezier(0.45, 0.05, 0.35, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+/* ---------- hero entrance ---------- */
+@keyframes heroIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hero-in {
+  opacity: 0;
+  animation: heroIn 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+
+/* ---------- marquee ---------- */
+@keyframes marqueeMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marqueeMove 34s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* ---------- image breathing ---------- */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+.img-breathe {
+  animation: breathe 16s ease-in-out infinite;
+}
+
+/* ---------- floaty / pulse ---------- */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(9px);
+  }
+}
+.animate-floaty {
+  animation: floaty 2.6s ease-in-out infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  80%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+.pulse-ring {
+  animation: pulseRing 2.4s cubic-bezier(0.2, 0.6, 0.36, 1) infinite;
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+}
+.reveal.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- dotted price leader ---------- */
+.leader-dots {
+  flex: 1;
+  margin: 0 0.7rem 0.4rem;
+  border-bottom: 1px dotted rgba(240, 233, 211, 0.35);
+}
+
+/* ---------- accordion ---------- */
+.acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.acc-panel.open {
+  grid-template-rows: 1fr;
+}
+.acc-panel > div {
+  overflow: hidden;
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .flor-draw path,
+  .flor-draw line,
+  .flor-draw ellipse {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+  }
+  .hero-in {
+    animation: none;
+    opacity: 1;
+  }
+  .marquee-track,
+  .img-breathe,
+  .animate-floaty,
+  .pulse-ring {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .acc-panel {
+    transition: none;
+  }
+}
