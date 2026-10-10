@@ -15,11 +15,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Path mapping */
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    },
+    
+/* Path mapping */
+"paths": {
+  "@/*": ["./src/*"]
+},
+
 
     /* Linting */
     "strict": true,
